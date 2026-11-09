@@ -247,3 +247,339 @@ void Ejercicio10()
     }
 
 }
+
+Ejercicio1_2();
+
+
+void Ejercicio1_2()
+{
+    Console.WriteLine("Ejercicio 1:");
+
+    int num1, num2;
+
+    Console.WriteLine("Ingrese el primer número:");
+    string input1Str = Console.ReadLine();
+    Console.WriteLine("Ingrese el segundo número:");
+    string input2Str = Console.ReadLine();
+
+    num1 = Convert.ToInt32(input1Str);
+    num2 = Convert.ToInt32(input2Str);
+
+    if (num1 > num2)
+    {
+        Console.WriteLine($"El número mayor es {num1}");
+    }
+    else if (num2 > num1)
+    {
+        Console.WriteLine($"El número mayor es {num2}");
+    }
+    else
+    {
+        Console.WriteLine("Los dos números son iguales");
+    }
+}
+
+Ejercicio2_2();
+
+void Ejercicio2_2()
+{
+    Console.WriteLine("Ejercicio 2:");
+
+    double kilowatios;
+    double precioKilowatio;
+
+    Console.WriteLine("Ingrese los kilowatios consumidos:");
+    string inputStr = Console.ReadLine();
+    kilowatios = Convert.ToDouble(inputStr);
+
+    if (kilowatios > 1800)
+    {
+        precioKilowatio = 0.8;
+    }
+    else if (kilowatios >= 1000)
+    {
+        precioKilowatio = 0.12;
+    }
+    else
+    {
+        precioKilowatio = 0.14;
+    }
+
+    double total = kilowatios * precioKilowatio;
+
+    Console.WriteLine("El total de la factura es: " + total.ToString("C2"));
+}
+
+Ejercicio3_2();
+
+void Ejercicio3_2()
+{
+    Console.WriteLine("Ejercicio 3:");
+
+    char estadoCivil;
+
+    Console.WriteLine("Introduzca su estado civil (C, S, V o D):");
+    string inputStr = Console.ReadLine();
+    estadoCivil = Convert.ToChar(inputStr.ToUpper());
+
+    switch (estadoCivil)
+    {
+        case 'C':
+            Console.WriteLine("Tu estado civil es Casad@");
+            break;
+        case 'S':
+            Console.WriteLine("Tu estado civil es Solter@");
+            break;
+        case 'V':
+            Console.WriteLine("Tu estado civil es Viud@");
+            break;
+        case 'D':
+            Console.WriteLine("Tu estado civil es Divorciad@");
+            break;
+        default:
+            Console.WriteLine("La opción introducida no es correcta");
+            break;
+    }
+}
+
+Ejercicio4_2();
+
+void Ejercicio4_2()
+{
+    Console.WriteLine("Ejercicio 4:");
+
+    int numero;
+
+    do
+    {
+        Console.WriteLine("Introduzca un número del 1 al 9:");
+        string inputStr = Console.ReadLine();
+        numero = Convert.ToInt32(inputStr);
+
+        if (numero < 1 || numero > 9)
+        {
+            Console.WriteLine("El número debe estar entre 1 y 9");
+        }
+    } while (numero < 1 || numero > 9);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        Console.WriteLine(numero + " x " + i + " = " + (numero * i));
+    }
+}
+
+Ejercicio5_2();
+
+void Ejercicio5_2()
+{
+    Console.WriteLine("Ejercicio 5:");
+
+    Console.WriteLine("Introduzca una cadena de texto:");
+    string texto = Console.ReadLine();
+
+    Console.WriteLine("Longitud de la cadena: " + texto.Length);
+
+    Console.WriteLine("Introduzca una subcadena para comprobar si está contenida:");
+    string subcadena = Console.ReadLine();
+    Console.WriteLine("¿La cadena contiene la subcadena? " + texto.Contains(subcadena));
+
+    Console.WriteLine("Introduzca la letra que desea reemplazar:");
+    char letraAnterior = Convert.ToChar(Console.ReadLine());
+    Console.WriteLine("Introduzca la nueva letra:");
+    char letraNueva = Convert.ToChar(Console.ReadLine());
+    Console.WriteLine("Cadena con el reemplazo: " + texto.Replace(letraAnterior, letraNueva));
+
+    Console.WriteLine("Cadena en mayúsculas: " + texto.ToUpper());
+    Console.WriteLine("Cadena en minúsculas: " + texto.ToLower());
+
+    if (texto.Length > 0)
+    {
+        Console.WriteLine("Introduzca la posición del carácter que desea eliminar (empezando por 0):");
+        int posicion = Convert.ToInt32(Console.ReadLine());
+
+        if (posicion >= 0 && posicion < texto.Length)
+        {
+            Console.WriteLine("Cadena sin ese carácter: " + texto.Remove(posicion, 1));
+        }
+        else
+        {
+            Console.WriteLine("La posición no es válida");
+        }
+
+        Console.WriteLine("Introduzca la posición inicial de la subcadena:");
+        int inicio = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Introduzca la posición final de la subcadena:");
+        int fin = Convert.ToInt32(Console.ReadLine());
+
+        if (inicio >= 0 && fin >= inicio && fin <= texto.Length)
+        {
+            Console.WriteLine("Subcadena obtenida: " + texto.Substring(inicio, fin - inicio));
+        }
+        else
+        {
+            Console.WriteLine("La posición inicial o final no son válidas");
+        }
+    }
+    else
+    {
+        Console.WriteLine("La cadena está vacía, no se pueden eliminar caracteres ni obtener subcadenas");
+    }
+}
+
+Ejercicio6_2();
+
+void Ejercicio6_2()
+{
+    Console.WriteLine("Ejercicio 6:");
+
+    int numero;
+    long factorial = 1;
+
+    Console.WriteLine("Introduzca un número entero entre 0 y 20:");
+    string inputStr = Console.ReadLine();
+    numero = Convert.ToInt32(inputStr);
+
+    if (numero >= 0 && numero <= 20)
+    {
+        for (int i = 1; i <= numero; i++)
+        {
+            factorial = factorial * i;
+        }
+
+        Console.WriteLine("El factorial de " + numero + " es: " + factorial);
+    }
+    else
+    {
+        Console.WriteLine("El número debe estar entre 0 y 20");
+    }
+}
+
+Ejercicio7_2();
+
+void Ejercicio7_2()
+{
+    Console.WriteLine("Ejercicio 7:");
+
+    for (int i = 90; i >= 65; i--)
+    {
+        Console.Write(Convert.ToString((char)i) + " ");
+    }
+
+    Console.WriteLine();
+}
+
+Ejercicio8_2();
+
+void Ejercicio8_2()
+{
+    Console.WriteLine("Ejercicio 8:");
+
+    Random aleatorio = new Random();
+    int numero = aleatorio.Next(10, 31);
+
+    Console.WriteLine("Número aleatorio: " + numero);
+}
+
+Ejercicio9_2();
+
+void Ejercicio9_2()
+{
+    Console.WriteLine("Ejercicio 9:");
+
+    int tamano;
+
+    Console.WriteLine("Indique el tamaño del array:");
+    string inputStr = Console.ReadLine();
+    tamano = Convert.ToInt32(inputStr);
+
+    if (tamano > 0)
+    {
+        int[] numeros = new int[tamano];
+
+        for (int i = 0; i < numeros.Length; i++)
+        {
+            Console.WriteLine("Introduzca el valor para la posición " + i + ":");
+            numeros[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        Console.WriteLine("Números pares:");
+        for (int i = 0; i < numeros.Length; i++)
+        {
+            if (numeros[i] % 2 == 0)
+            {
+                Console.WriteLine(numeros[i]);
+            }
+        }
+
+        Console.WriteLine("Números impares:");
+        for (int i = 0; i < numeros.Length; i++)
+        {
+            if (numeros[i] % 2 != 0)
+            {
+                Console.WriteLine(numeros[i]);
+            }
+        }
+    }
+    else
+    {
+        Console.WriteLine("El tamaño del array debe ser mayor que 0");
+    }
+}
+
+Ejercicio10_2();
+
+void Ejercicio10_2()
+{
+    Console.WriteLine("Ejercicio 10:");
+
+    int[] numeros = { 8, 3, 15, 1, 10, 6, 20, 4, 12, 2 };
+
+    Array.Sort(numeros);
+
+    Console.WriteLine("Array ordenado:");
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        Console.WriteLine(numeros[i]);
+    }
+}
+
+Ejercicio11_2();
+
+void Ejercicio11_2()
+{
+    Console.WriteLine("Ejercicio 11:");
+
+    System.Collections.Stack pila = new System.Collections.Stack();
+    int cantidad;
+
+    Console.WriteLine("¿Cuántos números desea introducir? (mínimo 2):");
+    cantidad = Convert.ToInt32(Console.ReadLine());
+
+    while (cantidad < 2)
+    {
+        Console.WriteLine("Debe introducir al menos 2 números. Indique la cantidad:");
+        cantidad = Convert.ToInt32(Console.ReadLine());
+    }
+
+    for (int i = 0; i < cantidad; i++)
+    {
+        Console.WriteLine("Introduzca el número " + (i + 1) + ":");
+        int numero = Convert.ToInt32(Console.ReadLine());
+        pila.Push(numero);
+    }
+
+    Console.WriteLine("Elementos de la pila:");
+    foreach (int numero in pila)
+    {
+        Console.WriteLine(numero);
+    }
+
+    pila.Pop();
+    pila.Pop();
+
+    Console.WriteLine("Elementos de la pila después de sacar dos valores:");
+    foreach (int numero in pila)
+    {
+        Console.WriteLine(numero);
+    }
+}
