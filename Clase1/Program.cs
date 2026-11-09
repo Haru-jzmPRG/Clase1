@@ -583,3 +583,442 @@ void Ejercicio11_2()
         Console.WriteLine(numero);
     }
 }
+
+Ejercicio1_3();
+
+void Ejercicio1_3()
+{
+    Console.WriteLine("Ejercicio 1:");
+
+    int tamano;
+
+    Console.WriteLine("Introduzca el tamaño del array:");
+    tamano = Convert.ToInt32(Console.ReadLine());
+
+    while (tamano <= 0)
+    {
+        Console.WriteLine("El tamaño debe ser mayor que 0. Inténtelo de nuevo:");
+        tamano = Convert.ToInt32(Console.ReadLine());
+    }
+
+    int[] numeros = new int[tamano];
+    int suma = 0;
+
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        Console.WriteLine("Introduzca el valor " + (i + 1) + ":");
+        numeros[i] = Convert.ToInt32(Console.ReadLine());
+
+        suma = suma + numeros[i];
+    }
+
+    double media = (double)suma / numeros.Length;
+
+    Console.WriteLine("La suma de los valores es: " + suma);
+    Console.WriteLine("La media de los valores es: " + media);
+}
+
+Ejercicio2_3();
+void Ejercicio2_3()
+{
+    Console.WriteLine("Ejercicio 2:");
+
+    string texto;
+
+    Console.WriteLine("Introduzca una cadena de texto:");
+    texto = Console.ReadLine();
+
+    int cantidadEspacios = ContarEspacios(texto);
+
+    Console.WriteLine("La cantidad de espacios en blanco es: " + cantidadEspacios);
+}
+
+int ContarEspacios(string texto)
+{
+    int contador = 0;
+
+    for (int i = 0; i < texto.Length; i++)
+    {
+        if (texto[i] == ' ')
+        {
+            contador++;
+        }
+    }
+
+    return contador;
+}
+
+Ejercicio3_3();
+void Ejercicio3_3()
+{
+    Console.WriteLine("Ejercicio 3:");
+
+    int numero;
+
+    Console.WriteLine("Introduzca un número para calcular su factorial:");
+    numero = Convert.ToInt32(Console.ReadLine());
+
+    while (numero < 0 || numero > 20)
+    {
+        Console.WriteLine("Introduzca un número entre 0 y 20:");
+        numero = Convert.ToInt32(Console.ReadLine());
+    }
+
+    long resultado = CalcularFactorial(numero);
+
+    Console.WriteLine("El factorial de " + numero + " es: " + resultado);
+}
+
+long CalcularFactorial(int numero)
+{
+    if (numero == 0 || numero == 1)
+    {
+        return 1;
+    }
+
+    return numero * CalcularFactorial(numero - 1);
+}
+
+Ejercicio4_3();
+void Ejercicio4_3()
+{
+    Console.WriteLine("Ejercicio 4:");
+
+    int numero;
+
+    Console.WriteLine("Introduzca un número:");
+    numero = Convert.ToInt32(Console.ReadLine());
+
+    if (EsPrimo(numero))
+    {
+        Console.WriteLine("El número " + numero + " es primo.");
+    }
+    else
+    {
+        Console.WriteLine("El número " + numero + " no es primo.");
+    }
+}
+
+bool EsPrimo(int numero)
+{
+    if (numero <= 1)
+    {
+        return false;
+    }
+
+    for (int i = 2; i < numero; i++)
+    {
+        if (numero % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+Ejercicio5_3();
+void Ejercicio5_3()
+{
+    Console.WriteLine("Ejercicio 5:");
+
+    int baseNumero;
+    int exponente;
+
+    Console.WriteLine("Introduzca la base:");
+    baseNumero = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine("Introduzca el exponente (mayor o igual que 0):");
+    exponente = Convert.ToInt32(Console.ReadLine());
+
+    while (exponente < 0)
+    {
+        Console.WriteLine("El exponente no puede ser negativo. Inténtelo de nuevo:");
+        exponente = Convert.ToInt32(Console.ReadLine());
+    }
+
+    double resultadoIterativo = CalcularPotenciaIterativa(baseNumero, exponente);
+    double resultadoRecursivo = CalcularPotenciaRecursiva(baseNumero, exponente);
+
+    Console.WriteLine("Resultado mediante método iterativo: " + resultadoIterativo);
+    Console.WriteLine("Resultado mediante método recursivo: " + resultadoRecursivo);
+}
+
+double CalcularPotenciaIterativa(int baseNumero, int exponente)
+{
+    double resultado = 1;
+
+    for (int i = 0; i < exponente; i++)
+    {
+        resultado = resultado * baseNumero;
+    }
+
+    return resultado;
+}
+
+double CalcularPotenciaRecursiva(int baseNumero, int exponente)
+{
+    if (exponente == 0)
+    {
+        return 1;
+    }
+
+    return baseNumero * CalcularPotenciaRecursiva(baseNumero, exponente - 1);
+}
+
+Ejercicio6_3();
+void Ejercicio6_3()
+{
+    Console.WriteLine("Ejercicio 6:");
+
+    string usuario;
+    string contrasena;
+    bool acceso = false;
+
+    int intentos = 0;
+
+    while (intentos < 3 && acceso == false)
+    {
+        Console.WriteLine("Introduzca el usuario:");
+        usuario = Console.ReadLine();
+
+        Console.WriteLine("Introduzca la contraseña:");
+        contrasena = Console.ReadLine();
+
+        acceso = ComprobarLogin(usuario, contrasena);
+
+        if (acceso == true)
+        {
+            Console.WriteLine("Inicio de sesión correcto.");
+        }
+        else
+        {
+            intentos++;
+            Console.WriteLine("Usuario o contraseña incorrectos. Intentos restantes: " + (3 - intentos));
+        }
+    }
+
+    if (acceso == false)
+    {
+        Console.WriteLine("Ha agotado los tres intentos.");
+    }
+}
+
+bool ComprobarLogin(string usuario, string contrasena)
+{
+    if (usuario == "usuario2DAM" && contrasena == "pass2DAM")
+    {
+        return true;
+    }
+
+    return false;
+}
+
+Ejercicio7_3();
+void Ejercicio7_3()
+{
+    Console.WriteLine("Ejercicio 7:");
+
+    int numero1;
+    int numero2;
+
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+
+    if (EsMultiplo(numero1, numero2) || EsMultiplo(numero2, numero1))
+    {
+        Console.WriteLine("Uno de los números es múltiplo del otro.");
+    }
+    else
+    {
+        Console.WriteLine("Ninguno de los números es múltiplo del otro.");
+    }
+}
+
+bool EsMultiplo(int numero1, int numero2)
+{
+    if (numero2 == 0)
+    {
+        return false;
+    }
+
+    if (numero1 % numero2 == 0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+Ejercicio8_3();
+void Ejercicio8_3()
+{
+    Console.WriteLine("Ejercicio 8:");
+
+    int numero;
+
+    Console.WriteLine("Introduzca un número entero:");
+    numero = Convert.ToInt32(Console.ReadLine());
+
+    int resultado = SumarDigitos(numero);
+
+    Console.WriteLine("La suma de los dígitos de " + numero + " es: " + resultado);
+}
+
+int SumarDigitos(int numero)
+{
+    long numeroAuxiliar = numero;
+
+    if (numeroAuxiliar < 0)
+    {
+        numeroAuxiliar = -numeroAuxiliar;
+    }
+
+    int suma = 0;
+
+    while (numeroAuxiliar > 0)
+    {
+        suma = suma + (int)(numeroAuxiliar % 10);
+        numeroAuxiliar = numeroAuxiliar / 10;
+    }
+
+    return suma;
+}
+
+Ejercicio9_3();
+void Ejercicio9_3()
+{
+    Console.WriteLine("Ejercicio 9:");
+
+    int[] numeros = { 15, 8, 23, 4, 17, 2, 31, 9 };
+
+    Console.WriteLine("Valores del array:");
+
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        Console.WriteLine("Posición " + i + ": " + numeros[i]);
+    }
+
+    int posicionMenor = ObtenerPosicionMenor(numeros);
+
+    Console.WriteLine("El número menor es " + numeros[posicionMenor] + " y está en la posición " + posicionMenor + ".");
+}
+
+int ObtenerPosicionMenor(int[] numeros)
+{
+    int posicionMenor = 0;
+
+    for (int i = 1; i < numeros.Length; i++)
+    {
+        if (numeros[i] < numeros[posicionMenor])
+        {
+            posicionMenor = i;
+        }
+    }
+
+    return posicionMenor;
+}
+
+Ejercicio10_3();
+void Ejercicio10_3()
+{
+    Console.WriteLine("Ejercicio 10:");
+
+    Banco banco = new Banco();
+
+    banco.Operar();
+    banco.ObtenerEstado();
+}
+
+class Cliente
+{
+    private string nombre;
+    private double cantidadTotal;
+
+    public Cliente(string nombre)
+    {
+        this.nombre = nombre;
+        cantidadTotal = 0;
+    }
+
+    public void Ingresar(double cantidad)
+    {
+        if (cantidad > 0)
+        {
+            cantidadTotal = cantidadTotal + cantidad;
+        }
+        else
+        {
+            Console.WriteLine("La cantidad a ingresar debe ser mayor que 0.");
+        }
+    }
+
+    public void Sacar(double cantidad)
+    {
+        if (cantidad > 0 && cantidad <= cantidadTotal)
+        {
+            cantidadTotal = cantidadTotal - cantidad;
+        }
+        else
+        {
+            Console.WriteLine("No se puede realizar la retirada.");
+        }
+    }
+
+    public double GetCantidadTotal()
+    {
+        return cantidadTotal;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("El cliente " + nombre + " tiene " + cantidadTotal + " euros en su cuenta.");
+    }
+}
+
+class Banco
+{
+    private Cliente cliente1;
+    private Cliente cliente2;
+    private Cliente cliente3;
+
+    public Banco()
+    {
+        cliente1 = new Cliente("Cliente 1");
+        cliente2 = new Cliente("Cliente 2");
+        cliente3 = new Cliente("Cliente 3");
+    }
+
+    public void Operar()
+    {
+        double cantidad;
+
+        Console.WriteLine("Cantidad que desea ingresar el cliente 1:");
+        cantidad = Convert.ToDouble(Console.ReadLine());
+        cliente1.Ingresar(cantidad);
+
+        Console.WriteLine("Cantidad que desea ingresar el cliente 2:");
+        cantidad = Convert.ToDouble(Console.ReadLine());
+        cliente2.Ingresar(cantidad);
+
+        Console.WriteLine("Cantidad que desea ingresar el cliente 3:");
+        cantidad = Convert.ToDouble(Console.ReadLine());
+        cliente3.Ingresar(cantidad);
+    }
+
+    public void ObtenerEstado()
+    {
+        double totalBanco = cliente1.GetCantidadTotal() + cliente2.GetCantidadTotal() + cliente3.GetCantidadTotal();
+
+        Console.WriteLine("Dinero total ingresado en el banco: " + totalBanco + " euros.");
+        Console.WriteLine("Información de los clientes:");
+
+        cliente1.MostrarInformacion();
+        cliente2.MostrarInformacion();
+        cliente3.MostrarInformacion();
+    }
+}
+
