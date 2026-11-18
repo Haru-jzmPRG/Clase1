@@ -1022,3 +1022,300 @@ class Banco
     }
 }
 
+
+
+EjercicioDel1_2();
+
+void EjercicioDel1_2()
+{
+    Console.WriteLine("Ejercicio 1: Delegado Básico");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    Operacion operacion = Sumar;
+    Console.WriteLine("El resultado de la suma es: " + operacion(numero1, numero2));
+}
+
+int Sumar(int numero1, int numero2)
+{
+    return numero1 + numero2;
+}
+
+EjercicioDel2_2();
+void EjercicioDel2_2()
+{
+    Console.WriteLine("Ejercicio 2: Múltiples Métodos");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    Operacion operacionSuma = Sumar;
+    Operacion operacionResta = Restar;
+    Console.WriteLine("Resultado de la suma: " + operacionSuma(numero1, numero2));
+    Console.WriteLine("Resultado de la resta: " + operacionResta(numero1, numero2));
+}
+
+int Restar(int numero1, int numero2)
+{
+    return numero1 - numero2;
+}
+
+EjercicioDel3_2();
+void EjercicioDel3_2()
+{
+    Console.WriteLine("Ejercicio 3: Uso de Multicast Delegates");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    Operacion operaciones = Sumar;
+    operaciones += Restar;
+    operaciones += Multiplicar;
+    Console.WriteLine("Resultados de las operaciones:");
+    foreach (Operacion operacion in operaciones.GetInvocationList())
+    {
+        Console.WriteLine(operacion(numero1, numero2));
+    }
+}
+
+int Multiplicar(int numero1, int numero2)
+{
+    return numero1 * numero2;
+}
+
+EjercicioDel4_2();
+void EjercicioDel4_2()
+{
+    Console.WriteLine("Ejercicio 4: Delegados con Diferentes Métodos");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    Operacion operaciones = Sumar;
+    operaciones += Restar;
+    operaciones += Multiplicar;
+    operaciones += Dividir;
+    Console.WriteLine("Resultados de las operaciones:");
+    foreach (Operacion operacion in operaciones.GetInvocationList())
+    {
+        if (operacion == Dividir && numero2 == 0)
+        {
+            Console.WriteLine("No se puede dividir entre cero.");
+        }
+        else
+        {
+            Console.WriteLine(operacion(numero1, numero2));
+        }
+    }
+}
+
+int Dividir(int numero1, int numero2)
+{
+    return numero1 / numero2;
+}
+
+EjercicioDel5_2();
+void EjercicioDel5_2()
+{
+    Console.WriteLine("Ejercicio 5: Delegados y Retornos");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    MostrarResultado(Sumar, numero1, numero2);
+    MostrarResultado(Restar, numero1, numero2);
+    MostrarResultado(Multiplicar, numero1, numero2);
+}
+
+void MostrarResultado(Operacion operacion, int numero1, int numero2)
+{
+    int resultado = operacion(numero1, numero2);
+    Console.WriteLine("El resultado de la operación es: " + resultado);
+}
+
+EjercicioDel6_2();
+void EjercicioDel6_2()
+{
+    Console.WriteLine("Ejercicio 6: Delegados y Nombres");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    Operar[] operaciones = { Suma, Resta, Multiplicacion };
+    string[] nombres = { "Suma", "Resta", "Multiplicación" };
+    for (int i = 0; i < operaciones.Length; i++)
+    {
+        Console.WriteLine("Resultado de " + nombres[i] + ": " + operaciones[i](numero1, numero2));
+    }
+}
+
+int Suma(int numero1, int numero2)
+{
+    return numero1 + numero2;
+}
+
+int Resta(int numero1, int numero2)
+{
+    return numero1 - numero2;
+}
+
+int Multiplicacion(int numero1, int numero2)
+{
+    return numero1 * numero2;
+}
+
+EjercicioDel7_2();
+void EjercicioDel7_2()
+{
+    Console.WriteLine("Ejercicio 7: Delegados y Arrays");
+    int cantidad;
+    Console.WriteLine("¿Cuántos números desea introducir?");
+    cantidad = Convert.ToInt32(Console.ReadLine());
+    while (cantidad <= 0)
+    {
+        Console.WriteLine("La cantidad debe ser mayor que 0. Inténtelo de nuevo:");
+        cantidad = Convert.ToInt32(Console.ReadLine());
+    }
+    int[] numeros = new int[cantidad];
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        Console.WriteLine("Introduzca el número " + (i + 1) + ":");
+        numeros[i] = Convert.ToInt32(Console.ReadLine());
+    }
+    OperarArray[] operaciones = { SumarArray, MultiplicarArray };
+    string[] nombres = { "Suma", "Multiplicación" };
+    for (int i = 0; i < operaciones.Length; i++)
+    {
+        Console.WriteLine("Resultado de la " + nombres[i] + ": " + operaciones[i](numeros));
+    }
+}
+
+int SumarArray(int[] numeros)
+{
+    int suma = 0;
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        suma = suma + numeros[i];
+    }
+    return suma;
+}
+
+int MultiplicarArray(int[] numeros)
+{
+    int multiplicacion = 1;
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        multiplicacion = multiplicacion * numeros[i];
+    }
+    return multiplicacion;
+}
+
+EjercicioDel8_2();
+void EjercicioDel8_2()
+{
+    Console.WriteLine("Ejercicio 8: Delegados y Retornos Condicionales");
+    int numero;
+    Console.WriteLine("Introduzca un número:");
+    numero = Convert.ToInt32(Console.ReadLine());
+    Transformar[] transformaciones = { Doblar, Triplicar, Cuadrado };
+    string[] nombres = { "Doblar", "Triplicar", "Cuadrado" };
+    for (int i = 0; i < transformaciones.Length; i++)
+    {
+        Console.WriteLine(nombres[i] + ": " + transformaciones[i](numero));
+    }
+}
+
+int Doblar(int numero)
+{
+    return numero * 2;
+}
+
+int Triplicar(int numero)
+{
+    return numero * 3;
+}
+
+int Cuadrado(int numero)
+{
+    return numero * numero;
+}
+
+EjercicioDel9_2();
+void EjercicioDel9_2()
+{
+    Console.WriteLine("Ejercicio 9: Delegados y Funciones de Callback");
+    int numero1, numero2;
+    Console.WriteLine("Introduzca el primer número:");
+    numero1 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Introduzca el segundo número:");
+    numero2 = Convert.ToInt32(Console.ReadLine());
+    int resultadoSuma = EjecutarOperacion(Sumar, numero1, numero2);
+    int resultadoResta = EjecutarOperacion(Restar, numero1, numero2);
+    int resultadoMultiplicacion = EjecutarOperacion(Multiplicar, numero1, numero2);
+    Console.WriteLine("Resultado de la suma: " + resultadoSuma);
+    Console.WriteLine("Resultado de la resta: " + resultadoResta);
+    Console.WriteLine("Resultado de la multiplicación: " + resultadoMultiplicacion);
+}
+
+int EjecutarOperacion(OperacionCallback operacion, int numero1, int numero2)
+{
+    return operacion(numero1, numero2);
+}
+
+EjercicioDel10_2();
+void EjercicioDel10_2()
+{
+    Console.WriteLine("Ejercicio 10: Delegados y Manejo de Errores");
+    double numero;
+    Console.WriteLine("Introduzca un número para calcular su raíz cuadrada y su logaritmo:");
+    numero = Convert.ToDouble(Console.ReadLine());
+    Calculo calculoRaiz = CalcularRaiz;
+    Calculo calculoLogaritmo = CalcularLogaritmo;
+    EjecutarCalculo(calculoRaiz, numero, "raíz cuadrada");
+    EjecutarCalculo(calculoLogaritmo, numero, "logaritmo");
+}
+
+double CalcularRaiz(double numero)
+{
+    if (numero < 0)
+    {
+        throw new ArgumentException("No se puede calcular la raíz cuadrada de un número negativo.");
+    }
+    return Math.Sqrt(numero);
+}
+
+double CalcularLogaritmo(double numero)
+{
+    if (numero <= 0)
+    {
+        throw new ArgumentException("El logaritmo solo se puede calcular con números mayores que 0.");
+    }
+    return Math.Log(numero);
+}
+
+void EjecutarCalculo(Calculo calculo, double numero, string nombre)
+{
+    try
+    {
+        double resultado = calculo(numero);
+        Console.WriteLine("El resultado del " + nombre + " es: " + resultado);
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine("Error al calcular el " + nombre + ": " + error.Message);
+    }
+}
+
+delegate int Operacion(int numero1, int numero2);
+delegate int Operar(int numero1, int numero2);
+delegate int OperarArray(int[] numeros);
+delegate int Transformar(int numero);
+delegate int OperacionCallback(int numero1, int numero2);
+delegate double Calculo(double numero);
