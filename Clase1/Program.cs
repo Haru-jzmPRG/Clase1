@@ -1320,8 +1320,6 @@ delegate int Transformar(int numero);
 delegate int OperacionCallback(int numero1, int numero2);
 delegate double Calculo(double numero);
 
-*/
-
 Ejercicio1MetAnonimo_4();
 
 void Ejercicio1MetAnonimo_4()
@@ -1560,5 +1558,347 @@ class Vehiculo
         Marca = marca;
         Modelo = modelo;
         AnioFabricacion = anioFabricacion;
+    }
+}
+*/
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Ejercicio1EventDelegados_6();
+        Ejercicio2EventDelegados_6();
+        Ejercicio3EventDelegados_6();
+        Ejercicio4EventDelegados_6();
+        Ejercicio5EventDelegados_6();
+    }
+
+    static void Ejercicio1EventDelegados_6()
+    {
+        Console.WriteLine("===== EJERCICIO 1: REGISTRO DE VENTAS =====");
+
+        RegistroVentas registroVentas = new RegistroVentas();
+        ServicioRegistro servicioRegistro = new ServicioRegistro();
+        ServicioNotificacion servicioNotificacion = new ServicioNotificacion();
+
+        registroVentas.VentaRealizada += servicioRegistro.RegistrarVenta;
+        registroVentas.VentaRealizada += servicioNotificacion.EnviarNotificacionVenta;
+
+        registroVentas.ProcesarVenta("Te verde", 8.50);
+        registroVentas.ProcesarVenta("Te negro", 6.75);
+
+        Console.WriteLine();
+    }
+
+    static void Ejercicio2EventDelegados_6()
+    {
+        Console.WriteLine("===== EJERCICIO 2: CONTROL DE TEMPERATURA =====");
+
+        ControlTemperatura controlTemperatura = new ControlTemperatura(30);
+        ServicioAlertaTemperatura servicioAlerta = new ServicioAlertaTemperatura();
+        ServicioRegistroTemperatura servicioRegistro = new ServicioRegistroTemperatura();
+
+        controlTemperatura.TemperaturaAlta += servicioAlerta.EnviarAlerta;
+        controlTemperatura.TemperaturaAlta += servicioRegistro.RegistrarTemperatura;
+
+        controlTemperatura.ComprobarTemperatura(25);
+        controlTemperatura.ComprobarTemperatura(35);
+
+        Console.WriteLine();
+    }
+
+    static void Ejercicio3EventDelegados_6()
+    {
+        Console.WriteLine("===== EJERCICIO 3: BACKUP DE ARCHIVOS =====");
+
+        GestorBackups gestorBackups = new GestorBackups();
+        ServicioNotificacion servicioNotificacion = new ServicioNotificacion();
+        ServicioLog servicioLog = new ServicioLog();
+
+        gestorBackups.BackupCompletado += servicioNotificacion.EnviarNotificacionBackup;
+        gestorBackups.BackupCompletado += servicioLog.RegistrarBackup;
+
+        gestorBackups.CrearBackup("documentos.txt");
+        gestorBackups.CrearBackup("fotografias.zip");
+
+        Console.WriteLine();
+    }
+
+    static void Ejercicio4EventDelegados_6()
+    {
+        Console.WriteLine("===== EJERCICIO 4: MONITOREO DE PUERTAS Y VENTANAS =====");
+
+        SensorMonitoreo sensorMonitoreo = new SensorMonitoreo();
+        ServicioAlarma servicioAlarma = new ServicioAlarma();
+        ServicioRegistroIncidencias servicioRegistro = new ServicioRegistroIncidencias();
+
+        sensorMonitoreo.AlertaIntruso += servicioAlarma.ActivarAlarma;
+        sensorMonitoreo.AlertaIntruso += servicioRegistro.RegistrarIncidencia;
+
+        sensorMonitoreo.ComprobarSensor("Puerta principal", DateTime.Now, false);
+        sensorMonitoreo.ComprobarSensor("Ventana del salon", DateTime.Now, true);
+
+        Console.WriteLine();
+    }
+
+    static void Ejercicio5EventDelegados_6()
+    {
+        Console.WriteLine("===== EJERCICIO 5: SUPERVISION DEL CONSUMO DE ENERGIA =====");
+
+        MonitorEnergia monitorEnergia = new MonitorEnergia(100);
+        ServicioNotificacion servicioNotificacion = new ServicioNotificacion();
+        ServicioAjusteAutomatizado servicioAjuste = new ServicioAjusteAutomatizado();
+
+        monitorEnergia.ConsumoExcesivoDetectado += servicioNotificacion.EnviarAdvertenciaEnergia;
+        monitorEnergia.ConsumoExcesivoDetectado += servicioAjuste.AjustarDispositivos;
+
+        monitorEnergia.ComprobarConsumo(75);
+        monitorEnergia.ComprobarConsumo(150);
+
+        Console.WriteLine();
+    }
+}
+
+class VentaEventArgs : EventArgs
+{
+    public string Producto { get; set; }
+    public double Precio { get; set; }
+
+    public VentaEventArgs(string producto, double precio)
+    {
+        Producto = producto;
+        Precio = precio;
+    }
+}
+
+class RegistroVentas
+{
+    public event EventHandler<VentaEventArgs> VentaRealizada;
+
+    public void ProcesarVenta(string producto, double precio)
+    {
+        Console.WriteLine("Procesando venta...");
+        VentaEventArgs datosVenta = new VentaEventArgs(producto, precio);
+
+        if (VentaRealizada != null)
+        {
+            VentaRealizada(this, datosVenta);
+        }
+    }
+}
+
+class ServicioRegistro
+{
+    public void RegistrarVenta(object sender, VentaEventArgs e)
+    {
+        Console.WriteLine("Venta registrada: " + e.Producto + " - " + e.Precio + " euros");
+    }
+}
+
+class ServicioNotificacion
+{
+    public void EnviarNotificacionVenta(object sender, VentaEventArgs e)
+    {
+        Console.WriteLine("Notificacion: se ha vendido " + e.Producto);
+    }
+
+    public void EnviarNotificacionBackup(object sender, BackupEventArgs e)
+    {
+        Console.WriteLine("Notificacion: backup completado para " + e.NombreArchivo);
+    }
+
+    public void EnviarAdvertenciaEnergia(object sender, EnergiaEventArgs e)
+    {
+        Console.WriteLine("Advertencia: consumo excesivo de " + e.ConsumoActual + " kWh");
+    }
+}
+
+class TemperaturaEventArgs : EventArgs
+{
+    public double TemperaturaActual { get; set; }
+    public double Umbral { get; set; }
+
+    public TemperaturaEventArgs(double temperaturaActual, double umbral)
+    {
+        TemperaturaActual = temperaturaActual;
+        Umbral = umbral;
+    }
+}
+
+class ControlTemperatura
+{
+    private double umbral;
+
+    public event EventHandler<TemperaturaEventArgs> TemperaturaAlta;
+
+    public ControlTemperatura(double umbral)
+    {
+        this.umbral = umbral;
+    }
+
+    public void ComprobarTemperatura(double temperatura)
+    {
+        Console.WriteLine("Temperatura actual: " + temperatura + " grados");
+
+        if (temperatura > umbral)
+        {
+            TemperaturaEventArgs datos = new TemperaturaEventArgs(temperatura, umbral);
+
+            if (TemperaturaAlta != null)
+            {
+                TemperaturaAlta(this, datos);
+            }
+        }
+    }
+}
+
+class ServicioAlertaTemperatura
+{
+    public void EnviarAlerta(object sender, TemperaturaEventArgs e)
+    {
+        Console.WriteLine("ALERTA: temperatura superior al umbral de " + e.Umbral + " grados");
+    }
+}
+
+class ServicioRegistroTemperatura
+{
+    public void RegistrarTemperatura(object sender, TemperaturaEventArgs e)
+    {
+        Console.WriteLine("Temperatura registrada: " + e.TemperaturaActual + " grados");
+    }
+}
+
+class BackupEventArgs : EventArgs
+{
+    public string NombreArchivo { get; set; }
+    public DateTime Fecha { get; set; }
+
+    public BackupEventArgs(string nombreArchivo, DateTime fecha)
+    {
+        NombreArchivo = nombreArchivo;
+        Fecha = fecha;
+    }
+}
+
+class GestorBackups
+{
+    public event EventHandler<BackupEventArgs> BackupCompletado;
+
+    public void CrearBackup(string nombreArchivo)
+    {
+        Console.WriteLine("Creando copia de seguridad de " + nombreArchivo + "...");
+
+        BackupEventArgs datos = new BackupEventArgs(nombreArchivo, DateTime.Now);
+
+        if (BackupCompletado != null)
+        {
+            BackupCompletado(this, datos);
+        }
+    }
+}
+
+class ServicioLog
+{
+    public void RegistrarBackup(object sender, BackupEventArgs e)
+    {
+        Console.WriteLine("LOG: backup de " + e.NombreArchivo + " completado el " + e.Fecha);
+    }
+}
+
+class IntrusoEventArgs : EventArgs
+{
+    public string NombreSensor { get; set; }
+    public DateTime HoraDeteccion { get; set; }
+
+    public IntrusoEventArgs(string nombreSensor, DateTime horaDeteccion)
+    {
+        NombreSensor = nombreSensor;
+        HoraDeteccion = horaDeteccion;
+    }
+}
+
+class SensorMonitoreo
+{
+    public event EventHandler<IntrusoEventArgs> AlertaIntruso;
+
+    public void ComprobarSensor(string nombreSensor, DateTime hora, bool fueraHorarioPermitido)
+    {
+        Console.WriteLine("Comprobando sensor: " + nombreSensor);
+
+        if (fueraHorarioPermitido)
+        {
+            IntrusoEventArgs datos = new IntrusoEventArgs(nombreSensor, hora);
+
+            if (AlertaIntruso != null)
+            {
+                AlertaIntruso(this, datos);
+            }
+        }
+    }
+}
+
+class ServicioAlarma
+{
+    public void ActivarAlarma(object sender, IntrusoEventArgs e)
+    {
+        Console.WriteLine("ALARMA ACTIVADA: se ha detectado actividad en " + e.NombreSensor);
+    }
+}
+
+class ServicioRegistroIncidencias
+{
+    public void RegistrarIncidencia(object sender, IntrusoEventArgs e)
+    {
+        Console.WriteLine("Incidencia registrada: " + e.NombreSensor + " a las " + e.HoraDeteccion);
+    }
+}
+
+class EnergiaEventArgs : EventArgs
+{
+    public double ConsumoActual { get; set; }
+    public double Umbral { get; set; }
+
+    public EnergiaEventArgs(double consumoActual, double umbral)
+    {
+        ConsumoActual = consumoActual;
+        Umbral = umbral;
+    }
+}
+
+class MonitorEnergia
+{
+    private double umbral;
+
+    public event EventHandler<EnergiaEventArgs> ConsumoExcesivoDetectado;
+
+    public MonitorEnergia(double umbral)
+    {
+        this.umbral = umbral;
+    }
+
+    public void ComprobarConsumo(double consumo)
+    {
+        Console.WriteLine("Consumo actual: " + consumo + " kWh");
+
+        if (consumo > umbral)
+        {
+            EnergiaEventArgs datos = new EnergiaEventArgs(consumo, umbral);
+
+            if (ConsumoExcesivoDetectado != null)
+            {
+                ConsumoExcesivoDetectado(this, datos);
+            }
+        }
+    }
+}
+
+class ServicioAjusteAutomatizado
+{
+    public void AjustarDispositivos(object sender, EnergiaEventArgs e)
+    {
+        Console.WriteLine("Ajuste automatico: reduciendo el consumo de los dispositivos");
     }
 }
