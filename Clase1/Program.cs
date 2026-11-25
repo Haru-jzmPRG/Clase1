@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Console.WriteLine("Hello, DAM!");
 
 
@@ -19,7 +19,7 @@ input1 = Convert.ToInt32(input1Str);
 input2 = Convert.ToInt32(input2Str);
 
 Console.WriteLine("La suma de " + input1 + " y " + input2 + " es: " + (input1 + input2));
-*/
+
 
 Ejercicio1();
 void Ejercicio1()
@@ -1319,3 +1319,246 @@ delegate int OperarArray(int[] numeros);
 delegate int Transformar(int numero);
 delegate int OperacionCallback(int numero1, int numero2);
 delegate double Calculo(double numero);
+
+*/
+
+Ejercicio1MetAnonimo_4();
+
+void Ejercicio1MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 1:");
+    Multiplicar multiplicar = delegate (int a, int b) { return a * b; };
+    int numero1 = 4, numero2 = 5, numero3 = 3, numero4 = 7;
+    Console.WriteLine("El producto de " + numero1 + " y " + numero2 + " es: " + multiplicar(numero1, numero2));
+    Console.WriteLine("El producto de " + numero3 + " y " + numero4 + " es: " + multiplicar(numero3, numero4));
+}
+
+Ejercicio2MetAnonimo_4();
+void Ejercicio2MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 2:");
+    VerificarPalindromo verificar = delegate (string palabra)
+    {
+        string invertida = "";
+        for (int i = palabra.Length - 1; i >= 0; i--) invertida = invertida + palabra[i];
+        return palabra == invertida;
+    };
+    string palabra1 = "radar", palabra2 = "puerta";
+    Console.WriteLine("¿" + palabra1 + " es un palíndromo? " + verificar(palabra1));
+    Console.WriteLine("¿" + palabra2 + " es un palíndromo? " + verificar(palabra2));
+}
+
+Ejercicio3MetAnonimo_4();
+void Ejercicio3MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 3:");
+    ConvertirTemperatura convertir = delegate (double celsius) { return (celsius * 9 / 5) + 32; };
+    double temperatura1 = 0, temperatura2 = 30;
+    Console.WriteLine(temperatura1 + " °C equivalen a " + convertir(temperatura1) + " °F");
+    Console.WriteLine(temperatura2 + " °C equivalen a " + convertir(temperatura2) + " °F");
+}
+
+Ejercicio4MetAnonimo_4();
+void Ejercicio4MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 4:");
+    EsMayorQueDiez comprobar = delegate (int numero) { return numero > 10; };
+    int numero1 = 8, numero2 = 15;
+    Console.WriteLine("¿" + numero1 + " es mayor que 10? " + comprobar(numero1));
+    Console.WriteLine("¿" + numero2 + " es mayor que 10? " + comprobar(numero2));
+}
+
+Ejercicio5MetAnonimo_4();
+void Ejercicio5MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 5:");
+    CompararLongitud comparar = delegate (string palabra1, string palabra2)
+    {
+        return palabra1.Length == palabra2.Length;
+    };
+    string palabra1 = "gato", palabra2 = "perro";
+    Console.WriteLine("¿" + palabra1 + " y " + palabra2 + " tienen la misma longitud? " + comparar(palabra1, palabra2));
+}
+
+Ejercicio6MetAnonimo_4();
+void Ejercicio6MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 6:");
+    CalcularFactorial factorial = delegate (int numero)
+    {
+        long resultado = 1;
+        for (int i = 1; i <= numero; i++) resultado = resultado * i;
+        return resultado;
+    };
+    int numero1 = 4, numero2 = 6;
+    Console.WriteLine("El factorial de " + numero1 + " es: " + factorial(numero1));
+    Console.WriteLine("El factorial de " + numero2 + " es: " + factorial(numero2));
+}
+
+Ejercicio7MetAnonimo_4();
+void Ejercicio7MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 7:");
+    ContarCaracteres contar = delegate (string texto) { return texto.Length; };
+    string palabra1 = "mundo", palabra2 = "programa";
+    Console.WriteLine("La palabra " + palabra1 + " tiene " + contar(palabra1) + " caracteres.");
+    Console.WriteLine("La palabra " + palabra2 + " tiene " + contar(palabra2) + " caracteres.");
+}
+
+Ejercicio8MetAnonimo_4();
+void Ejercicio8MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 8:");
+    Operacion operacion = delegate (int numero)
+    {
+        if (numero % 2 == 0) return "El número es par.";
+        else return "El número es impar.";
+    };
+    int numero = 7;
+    ProcesarNumero(numero, operacion);
+}
+
+void ProcesarNumero(int numero, Operacion operacion)
+{
+    Console.WriteLine("Número: " + numero);
+    Console.WriteLine(operacion(numero));
+}
+
+Ejercicio9MetAnonimo_4();
+void Ejercicio9MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 9:");
+    List<Producto> productos = new List<Producto>();
+    productos.Add(new Producto("Leche", 10));
+    productos.Add(new Producto("Pan", 3));
+    productos.Add(new Producto("Arroz", 8));
+    productos.Add(new Producto("Pasta", 5));
+    productos.Add(new Producto("Aceite", 12));
+    Filtro filtro = delegate (Producto producto) { return producto.Cantidad > 5; };
+    MostrarProductosFiltrados(productos, filtro);
+}
+
+void MostrarProductosFiltrados(List<Producto> productos, Filtro filtro)
+{
+    Console.WriteLine("Productos con más de 5 unidades:");
+    foreach (Producto producto in productos)
+    {
+        if (filtro(producto)) Console.WriteLine(producto.Nombre + " - Cantidad: " + producto.Cantidad);
+    }
+}
+
+Ejercicio10MetAnonimo_4();
+void Ejercicio10MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 10:");
+    List<Empleado> empleados = new List<Empleado>();
+    empleados.Add(new Empleado("Ana", 25));
+    empleados.Add(new Empleado("Carlos", 35));
+    empleados.Add(new Empleado("Lucía", 42));
+    empleados.Add(new Empleado("Pedro", 29));
+    empleados.Add(new Empleado("Marta", 31));
+    FiltroEmpleado filtro = delegate (Empleado empleado) { return empleado.Edad > 30; };
+    FiltrarEmpleados(empleados, filtro);
+}
+
+void FiltrarEmpleados(List<Empleado> empleados, FiltroEmpleado filtro)
+{
+    Console.WriteLine("Empleados mayores de 30 años:");
+    foreach (Empleado empleado in empleados)
+    {
+        if (filtro(empleado)) Console.WriteLine(empleado.Nombre + " - Edad: " + empleado.Edad);
+    }
+}
+
+Ejercicio11MetAnonimo_4();
+void Ejercicio11MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 11:");
+    List<Libro> libros = new List<Libro>();
+    libros.Add(new Libro("El principito", "Ficción"));
+    libros.Add(new Libro("Don Quijote", "Ficción"));
+    libros.Add(new Libro("Breve historia del tiempo", "Ciencia"));
+    libros.Add(new Libro("La isla del tesoro", "Aventura"));
+    libros.Add(new Libro("Cien años de soledad", "Ficción"));
+    FiltroLibros filtro = delegate (Libro libro) { return libro.Categoria == "Ficción"; };
+    MostrarLibrosPorCategoria(libros, filtro);
+}
+
+void MostrarLibrosPorCategoria(List<Libro> libros, FiltroLibros filtro)
+{
+    Console.WriteLine("Libros de la categoría Ficción:");
+    foreach (Libro libro in libros)
+    {
+        if (filtro(libro)) Console.WriteLine(libro.Titulo + " - " + libro.Categoria);
+    }
+}
+
+Ejercicio12MetAnonimo_4();
+void Ejercicio12MetAnonimo_4()
+{
+    Console.WriteLine("Ejercicio 12:");
+    List<Vehiculo> vehiculos = new List<Vehiculo>();
+    vehiculos.Add(new Vehiculo("Toyota", "Corolla", 2005));
+    vehiculos.Add(new Vehiculo("Seat", "Ibiza", 2015));
+    vehiculos.Add(new Vehiculo("Ford", "Focus", 2008));
+    vehiculos.Add(new Vehiculo("Renault", "Clio", 2020));
+    vehiculos.Add(new Vehiculo("Volkswagen", "Golf", 2009));
+    FiltroVehiculo filtro = delegate (Vehiculo vehiculo) { return vehiculo.AnioFabricacion < 2010; };
+    MostrarVehiculosAntiguos(vehiculos, filtro);
+}
+
+void MostrarVehiculosAntiguos(List<Vehiculo> vehiculos, FiltroVehiculo filtro)
+{
+    Console.WriteLine("Vehículos fabricados antes de 2010:");
+    foreach (Vehiculo vehiculo in vehiculos)
+    {
+        if (filtro(vehiculo)) Console.WriteLine(vehiculo.Marca + " " + vehiculo.Modelo + " - Año: " + vehiculo.AnioFabricacion);
+    }
+}
+
+delegate int Multiplicar(int numero1, int numero2);
+delegate bool VerificarPalindromo(string palabra);
+delegate double ConvertirTemperatura(double celsius);
+delegate bool EsMayorQueDiez(int numero);
+delegate bool CompararLongitud(string palabra1, string palabra2);
+delegate long CalcularFactorial(int numero);
+delegate int ContarCaracteres(string texto);
+delegate string Operacion(int numero);
+delegate bool Filtro(Producto producto);
+delegate bool FiltroEmpleado(Empleado empleado);
+delegate bool FiltroLibros(Libro libro);
+delegate bool FiltroVehiculo(Vehiculo vehiculo);
+
+class Producto
+{
+    public string Nombre { get; set; }
+    public int Cantidad { get; set; }
+    public Producto(string nombre, int cantidad) { Nombre = nombre; Cantidad = cantidad; }
+}
+
+class Empleado
+{
+    public string Nombre { get; set; }
+    public int Edad { get; set; }
+    public Empleado(string nombre, int edad) { Nombre = nombre; Edad = edad; }
+}
+
+class Libro
+{
+    public string Titulo { get; set; }
+    public string Categoria { get; set; }
+    public Libro(string titulo, string categoria) { Titulo = titulo; Categoria = categoria; }
+}
+
+class Vehiculo
+{
+    public string Marca { get; set; }
+    public string Modelo { get; set; }
+    public int AnioFabricacion { get; set; }
+    public Vehiculo(string marca, string modelo, int anioFabricacion)
+    {
+        Marca = marca;
+        Modelo = modelo;
+        AnioFabricacion = anioFabricacion;
+    }
+}
